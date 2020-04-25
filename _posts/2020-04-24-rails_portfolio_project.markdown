@@ -27,7 +27,11 @@ gem 'activerecord-session_store'
 	
 	What this code is saying is we want to configure omniauth for Google, " Rails.application.credentials.dig(:google, :google_client_id)" tells it where to find the client id, similarly with the client secret in the line just below that.
 	
-	The next thing we'll need is our activerecord-session_store, to use that we will add to our initializers folder and file called session_store.rb and add to it ```Rails.application.config.session_store :active_record_store, key: '_devise-omniauth_session'``` what this line of code does is it persists our session.
+	The next thing we'll need is our activerecord-session_store, to use that we will add to our initializers folder and file called session_store.rb and add to it 
+	
+	```Rails.application.config.session_store :active_record_store, key: '_devise-omniauth_session'```
+	
+	what this line of code does is it persists our session.
 	
 	Time to head over to the user model and make some changes
 	
@@ -51,7 +55,7 @@ gem 'activerecord-session_store'
    end
 	 ```
 	 
-	 Here we are setting the user attributes by looking through the passed in provider data and either creating a new user or finding the user if it exists in the database.
+Here we are setting the user attributes by looking through the passed in provider data and either creating a new user or finding the user if it exists in the database.
 	 
 At this point, if you go to the sign up/ log in page you should see a link for third party authentication (sign in with google)
 clicking this link will take you to the third party site where you can give your permission to continue and from there you'll be redirected and get an "unknown action" error. This is because we need to set up a controller to handle the omniauth callback. I generated a controller called omniauth_controller and then in the routes file, told devise to use this controller in the devise_for line.
